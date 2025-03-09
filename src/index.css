@@ -34,13 +34,17 @@ body {
     #1a3153 100%
   );
   background-attachment: fixed;
+  @apply overflow-x-hidden;
+  width: 100%;
 }
 
 .app-container {
-  @apply max-w-6xl mx-auto p-6;
+  @apply w-full max-w-6xl mx-auto px-4 py-6 sm:px-6;
+  min-width: 0; /* Prevent container from growing beyond viewport */
 }
 
 .card {
+  @apply w-full overflow-hidden;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   @apply rounded-lg;
@@ -57,7 +61,7 @@ body {
 }
 
 .table-container {
-  @apply overflow-x-auto;
+  @apply w-full overflow-x-auto -mx-4 sm:mx-0;
   background: linear-gradient(to right, var(--color-bg-secondary) 30%, rgba(17, 34, 64, 0)), linear-gradient(to right, rgba(17, 34, 64, 0), var(--color-bg-secondary) 70%) 0 100%, radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, .2), transparent), radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .2), transparent) 0 100%;
   background-repeat: no-repeat;
   background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
@@ -65,31 +69,61 @@ body {
   background-attachment: local, local, scroll, scroll;
 }
 
+/* Add padding wrapper for mobile scrolling tables */
+.table-scroll-wrapper {
+  @apply px-4 sm:px-0;
+}
+
 table {
-  @apply min-w-full;
+  @apply min-w-full table-fixed md:table-auto;
 }
 
-th {
-  @apply px-4 py-3 text-xs font-medium text-gray-400 uppercase tracking-wider border-b border-gray-700;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-td {
-  @apply px-4 py-3 border-b border-gray-700 text-sm;
-}
-
-/* Add alignment classes for specific columns */
+/* Responsive table cells */
 th, td {
-  @apply px-4 py-3 border-b border-gray-700;
+  @apply px-3 py-2 sm:px-4 sm:py-3 text-sm whitespace-nowrap;
 }
 
-th {
-  @apply text-xs font-medium text-gray-400 uppercase tracking-wider;
-  background-color: rgba(0, 0, 0, 0.2);
+/* Status badge responsive styling */
+.status-badge {
+  @apply inline-block text-xs font-medium px-2 py-1 rounded whitespace-nowrap;
 }
 
-td {
-  @apply text-sm;
+/* Modal styles */
+.modal-overlay {
+  @apply fixed inset-0 flex items-center justify-center p-4 sm:p-6;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  @apply w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  min-width: 0; /* Prevent modal from growing beyond viewport */
+}
+
+.modal-body {
+  @apply p-4 sm:p-6;
+}
+
+/* Form layout */
+.form-grid {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6;
+}
+
+/* Title responsive styles */
+.app-title {
+  font-family: 'Jost', sans-serif;
+  @apply text-4xl sm:text-6xl mb-6 sm:mb-10;
+  font-weight: 200;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+/* Ensure all content respects viewport boundaries */
+* {
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 /* Right align numeric columns */
@@ -268,28 +302,6 @@ input[type="date"].input-field:invalid::-webkit-datetime-edit {
   color: var(--color-text-secondary);
 }
 
-/* Form layout */
-.form-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
-}
-
-.form-group {
-  @apply mb-4;
-}
-
-/* Modal styles */
-.modal-overlay {
-  @apply fixed inset-0 flex items-center justify-center p-4;
-  background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
-}
-
-.modal-content {
-  @apply w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg;
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -307,15 +319,6 @@ input[type="date"].input-field:invalid::-webkit-datetime-edit {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
-}
-
-/* Add title specific styles */
-.app-title {
-  font-family: 'Jost', sans-serif;
-  @apply text-6xl mb-10;
-  font-weight: 200;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
 }
 
 .app-title .highlight {

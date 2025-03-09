@@ -8,6 +8,13 @@ export interface RSUGrant {
   vestingSchedule: VestingEvent[];
 }
 
+export interface StockPriceEntry {
+  symbol: string;
+  date: Date;
+  price: number;
+  isCurrentPrice?: boolean;  // Flag for automatically added current prices
+}
+
 export interface VestingEvent {
   date: Date;
   quantity: number;
