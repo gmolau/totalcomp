@@ -1,5 +1,5 @@
 import { RSUGrant, VestingEvent } from '../types/rsu';
-import { addMonths, addYears } from 'date-fns';
+import { addMonths } from 'date-fns';
 
 export function generateVestingSchedule(
   grantDate: Date,

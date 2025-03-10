@@ -11,14 +11,6 @@ const VESTING_FREQUENCIES = [
   { value: 12, label: 'Annually' },
 ];
 
-const TIMEFRAMES = [
-  { value: 6, label: '6 months' },
-  { value: 12, label: '1 year' },
-  { value: 24, label: '2 years' },
-  { value: 36, label: '3 years' },
-  { value: 48, label: '4 years' },
-];
-
 interface GrantFormData {
   grantDate: string;
   quantity: string;
@@ -101,12 +93,6 @@ const MENU_ITEMS: MenuItem[] = [
   { id: 'vesting', label: 'RSU Vesting', icon: '📈' },
 ];
 
-interface IncomeSource {
-  type: 'salary';
-  amount: number;
-  frequency: 'yearly' | 'monthly';
-}
-
 interface TimelineEntry {
   date: Date;
   source: string;
@@ -151,10 +137,8 @@ const RSUCalculator: React.FC = () => {
   const [hideVested, setHideVested] = useState(true);
   const [groupByMonth, setGroupByMonth] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState<string>('income');
-  const [baseSalary, setBaseSalary] = useState<number>(0);
   const [nextSalaryId, setNextSalaryId] = useState<number>(1);
   const [nextBonusId, setNextBonusId] = useState<number>(1);
-  const [timeframe, setTimeframe] = useState<number>(24);
   const [timelineStartDate, setTimelineStartDate] = useState<Date>(new Date());
   const [timelineEndDate, setTimelineEndDate] = useState<Date>(() => {
     const date = new Date();
@@ -938,7 +922,6 @@ const RSUCalculator: React.FC = () => {
         );
       
       case 'timeline':
-        const monthlySalary = baseSalary / 12;
         const today = new Date();
         
         // Calculate number of months between start and end date

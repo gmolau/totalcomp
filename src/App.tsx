@@ -1,4 +1,3 @@
-import React from 'react'
 import RSUCalculator from './components/RSUCalculator'
 import './App.css'
 

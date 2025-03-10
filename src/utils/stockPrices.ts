@@ -1,4 +1,3 @@
-const API_KEY = 'demo'; // Replace with your Alpha Vantage API key
 const CORS_PROXY = 'https://cors-proxy.fringe.zone/';
 
 export async function fetchStockPrice(symbol: string): Promise<number> {
